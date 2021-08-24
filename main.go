@@ -37,8 +37,8 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 			iq.ID,
 			results,
 			&echotron.InlineQueryOptions{
-				CacheTime: 1,
-				SwitchPmText: "Unsupported URL (click to learn more)",
+				CacheTime:         1,
+				SwitchPmText:      "Unsupported URL (click to learn more)",
 				SwitchPmParameter: "unsupported",
 			},
 		)
@@ -48,17 +48,17 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 			iq.ID,
 			results,
 			&echotron.InlineQueryOptions{
-				CacheTime: 1,
-				SwitchPmText: "Need help?",
-				SwitchPmParameter: "help",
+				CacheTime:         1,
+				SwitchPmText:      "Need help?",
+				SwitchPmParameter: "",
 			},
 		)
 
 	default:
 		results = append(results, echotron.InlineQueryResultArticle{
-			Type: echotron.ARTICLE,
-			ID: url,
-			Title: "Send clean URL",
+			Type:        echotron.ARTICLE,
+			ID:          url,
+			Title:       "Send clean URL",
 			Description: url,
 			InputMessageContent: echotron.InputTextMessageContent{
 				MessageText: url,
@@ -92,7 +92,6 @@ func avertCrysis() {
 
 func main() {
 	urls = loadURLs()
-
 	dsp := echotron.NewDispatcher(TOKEN, newBot)
 	log.Println(dsp.Poll())
 }
