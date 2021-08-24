@@ -43,17 +43,17 @@ func loadURLs() (urls map[string][]string) {
 	return
 }
 
-func getCleanURL(rawURL string, urls map[string][]string) (cleanURL string) {
+func getCleanURL(rawURL string, urls map[string][]string) string {
 	u, err := url.Parse(rawURL)
 	if err != nil {
 		log.Println(err)
-		return
+		return ""
 	}
 
 	if len(urls) > 0 && len(urls[u.Host]) > 0 {
 		rx := regexp.MustCompile(urls[u.Host][0])
-		cleanURL = rx.ReplaceAllString(rawURL, urls[u.Host][1])
+		return rx.ReplaceAllString(rawURL, urls[u.Host][1])
 	}
 
-	return
+	return "unsupported"
 }
