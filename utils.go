@@ -2,12 +2,14 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/url"
 	"os"
 	"path"
 	"regexp"
+	"strings"
 )
 
 func getURLPath() string {
@@ -56,4 +58,14 @@ func getCleanURL(rawURL string, urls map[string][]string) string {
 	}
 
 	return "unsupported"
+}
+
+func createSupportedList(urls map[string][]string) string {
+	var sb strings.Builder
+
+	for k, _ := range urls {
+		sb.WriteString(fmt.Sprintf("`%s`\n", k))
+	}
+
+	return sb.String()
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"strings"
 
@@ -17,6 +18,7 @@ const BOT_NAME = "pulitiotron"
 const ADMIN = 14870908
 
 var urls map[string][]string
+var supported string
 
 func newBot(chatID int64) echotron.Bot {
 	return &bot{
@@ -110,8 +112,18 @@ func (b *bot) handleMessage(m echotron.Message) {
 		if b.chatID == ADMIN {
 			b.SendMessage("Reloading URLs...", b.chatID, nil)
 			urls = loadURLs()
+			supported = createSupportedList(urls)
 			b.SendMessage("URLs reloaded successfully.", b.chatID, nil)
 		}
+
+	case "/supported":
+		b.SendMessage(
+			fmt.Sprintf("This bot currently supports\\:\n\n%s", supported),
+			b.chatID,
+			&echotron.MessageOptions{
+				ParseMode: echotron.MarkdownV2,
+			},
+		)
 	}
 }
 
@@ -134,6 +146,7 @@ func avertCrysis() {
 
 func main() {
 	urls = loadURLs()
+	supported = createSupportedList(urls)
 	dsp := echotron.NewDispatcher(TOKEN, newBot)
 	log.Println(dsp.Poll())
 }
