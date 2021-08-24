@@ -31,7 +31,30 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 		url = getCleanURL(iq.Query, urls)
 	}
 
-	if url != "" {
+	switch url {
+	case "unsupported":
+		b.AnswerInlineQuery(
+			iq.ID,
+			results,
+			&echotron.InlineQueryOptions{
+				CacheTime: 1,
+				SwitchPmText: "Unsupported URL (click to learn more)",
+				SwitchPmParameter: "unsupported",
+			},
+		)
+
+	case "":
+		b.AnswerInlineQuery(
+			iq.ID,
+			results,
+			&echotron.InlineQueryOptions{
+				CacheTime: 1,
+				SwitchPmText: "Need help?",
+				SwitchPmParameter: "help",
+			},
+		)
+
+	default:
 		results = append(results, echotron.InlineQueryResultArticle{
 			Type: echotron.ARTICLE,
 			ID: url,
@@ -42,19 +65,14 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 			},
 		})
 
-		b.AnswerInlineQuery(iq.ID, results, nil)
-		return
+		b.AnswerInlineQuery(
+			iq.ID,
+			results,
+			&echotron.InlineQueryOptions{
+				CacheTime: 1,
+			},
+		)
 	}
-
-	// FIXME: Show "Unsupported URL" button when an unsupported URL is sent.
-	b.AnswerInlineQuery(
-		iq.ID,
-		results,
-		&echotron.InlineQueryOptions{
-			SwitchPmText: "Unsupported URL",
-			SwitchPmParameter: "start",
-		},
-	)
 }
 
 func (b *bot) Update(update *echotron.Update) {
