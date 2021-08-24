@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"strings"
 
 	"github.com/NicoNex/echotron/v3"
 )
@@ -13,6 +14,7 @@ type bot struct {
 
 const TOKEN = ""
 const BOT_NAME = "pulitiotron"
+const ADMIN = 14870908
 
 var urls map[string][]string
 
@@ -75,11 +77,51 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 	}
 }
 
+func (b *bot) handleMessage(m echotron.Message) {
+	msg := strings.TrimPrefix(m.Text, "/start ")
+
+	switch msg {
+	case "unsupported":
+		b.SendMessage(
+			"Hey\\! Looks like you tried to send me an unsupported URL\\.\n"+
+				"\n"+
+				"If you'd like to ask for support for a new URL type\\, you can open an issue or send a PR on the bot\\'s [GitHub page](https://github.com/DjMike238/pulitiotron)\\.",
+			b.chatID,
+			&echotron.MessageOptions{
+				ParseMode: echotron.MarkdownV2,
+			},
+		)
+
+	case "/start":
+		b.SendMessage(
+			"Welcome to *Pulitiotron*\\!\n"+
+				"\n"+
+				"Just write my nickname in the message box\\, put an URL after it and it will be magically cleaned\\!\n"+
+				"\n"+
+				"Bot made by @Dj\\_Mike238\\.\n"+
+				"This bot is [open source](https://github.com/DjMike238/pulitiotron)\\!",
+			b.chatID,
+			&echotron.MessageOptions{
+				ParseMode: echotron.MarkdownV2,
+			},
+		)
+
+	case "/reload":
+		if b.chatID == ADMIN {
+			b.SendMessage("Reloading URLs...", b.chatID, nil)
+			urls = loadURLs()
+			b.SendMessage("URLs reloaded successfully.", b.chatID, nil)
+		}
+	}
+}
+
 func (b *bot) Update(update *echotron.Update) {
 	defer avertCrysis()
 
 	if update.InlineQuery != nil {
 		b.handleInline(*update.InlineQuery)
+	} else if update.Message != nil {
+		b.handleMessage(*update.Message)
 	}
 }
 
