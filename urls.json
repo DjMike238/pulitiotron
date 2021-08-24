@@ -1,0 +1,3 @@
+{
+	"twitter.com": ["(https://twitter\\.com/.*/status/[0-9]*).*", "$1"]
+}
