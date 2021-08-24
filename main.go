@@ -11,7 +11,7 @@ type bot struct {
 	echotron.API
 }
 
-const TOKEN = "1878453925:AAGPYaw4QkTKKScYd-xRPb_-Lrfu1yDWFsg"
+const TOKEN = ""
 const BOT_NAME = "pulitiotron"
 
 var urls map[string][]string
