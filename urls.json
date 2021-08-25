@@ -1,5 +1,5 @@
 {
 	"google.com": ["https://(www\\.)?google\\.com/url\\?.*&url=(.*)/&(.*)?", "$2"],
 	"twitter.com": ["(https://(www\\.)?twitter\\.com/.*/status/[0-9]*).*", "$1"],
-	"youtube.com": ["(https://(www\\.)?youtube\\.com/watch\\?v=([0-9A-Za-z\\-_]*))(&t=[0-9a-z]*)?.*(&t=[0-9a-z]*)(.*)?", "$1$4$5"]
+	"youtube.com": ["(https://(www\\.)?youtube\\.com/watch\\?v=([0-9A-Za-z\\-_]*))(&t=[0-9a-z]*)?.*(&t=[0-9a-z]*)?(.*)?", "$1$4$5"]
 }
