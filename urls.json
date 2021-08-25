@@ -1,5 +1,5 @@
 {
-	"amazon": ["(https://(www\\.)?amazon\\.[a-z.]*/([A-Za-z0-9\-]*/dp|gp/product)/[^?]*).*", "$1"],
+	"amazon": ["(https://(www\\.)?amazon\\.[a-z.]*/([A-Za-z0-9\\-]*/dp|gp/product)/[^?]*).*", "$1"],
 	"google": ["https://(www\\.)?google\\.com/url\\?.*&url=(.*)/&(.*)?", "$2"],
 	"instagram": ["(https://(www\\.)?instagram\\.com/p/.*)/.*", "$1"],
 	"twitter": ["(https://(www\\.)?twitter\\.com/.*/status/[0-9]*).*", "$1"],
