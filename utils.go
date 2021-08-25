@@ -37,7 +37,12 @@ func getCleanURL(rawURL string, urls map[string][]string) string {
 		return ""
 	}
 
-	host := strings.TrimPrefix(u.Host, "www.")
+	hostArr := strings.Split(u.Hostname(), ".")
+	host := hostArr[1]
+
+	if hostArr[0] != "www" {
+		host = hostArr[0]
+	}
 
 	if len(urls) > 0 && len(urls[host]) > 0 {
 		rx := regexp.MustCompile(urls[host][0])
