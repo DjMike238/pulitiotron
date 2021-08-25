@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"strings"
+	"time"
 
 	"github.com/NicoNex/echotron/v3"
 )
@@ -61,7 +62,7 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 	default:
 		results = append(results, echotron.InlineQueryResultArticle{
 			Type:        echotron.ARTICLE,
-			ID:          url,
+			ID:          fmt.Sprintf("%d", time.Now().Unix()),
 			Title:       "Send clean URL",
 			Description: url,
 			InputMessageContent: echotron.InputTextMessageContent{
