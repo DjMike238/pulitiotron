@@ -3,38 +3,23 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
+	"net/http"
 	"log"
 	"net/url"
-	"os"
-	"path"
 	"regexp"
 	"strings"
 )
 
-func getURLPath() string {
-	cfgPath := path.Join(os.Getenv("HOME"), ".config", BOT_NAME)
-
-	_, err := os.Stat(cfgPath)
-	if os.IsNotExist(err) {
-		os.Mkdir(cfgPath, 0755)
-	}
-
-	cfgFile := path.Join(cfgPath, "urls.json")
-
-	file, err := os.OpenFile(cfgFile, os.O_RDWR|os.O_CREATE, 0666)
+func loadURLs() (urls map[string][]string) {
+	resp, err := http.Get("https://github.com/DjMike238/pulitiotron/raw/master/urls.json")
 	if err != nil {
 		log.Println(err)
+		return
 	}
-	defer file.Close()
+	defer resp.Body.Close()
 
-	return cfgFile
-}
-
-func loadURLs() (urls map[string][]string) {
-	path := getURLPath()
-
-	data, err := ioutil.ReadFile(path)
+	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Println(err)
 		return
