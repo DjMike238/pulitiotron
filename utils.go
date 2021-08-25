@@ -37,9 +37,11 @@ func getCleanURL(rawURL string, urls map[string][]string) string {
 		return ""
 	}
 
-	if len(urls) > 0 && len(urls[u.Host]) > 0 {
-		rx := regexp.MustCompile(urls[u.Host][0])
-		return rx.ReplaceAllString(rawURL, urls[u.Host][1])
+	host := strings.TrimPrefix(u.Host, "www.")
+
+	if len(urls) > 0 && len(urls[host]) > 0 {
+		rx := regexp.MustCompile(urls[host][0])
+		return rx.ReplaceAllString(rawURL, urls[host][1])
 	}
 
 	return "unsupported"
