@@ -1,6 +1,6 @@
 {
 	"amazon": ["(https://(www\\.)?amazon\\.[a-z.]*/([A-Za-z0-9\\-]*/dp|dp|gp/product)/[A-Z0-9]*).*", "$1"],
-	"google": ["https://(www\\.)?google\\.com/url\\?.*&url=(.*)/&(.*)?", "$2"],
+	"google": ["https://(www\\.)?google\\.com/(amp/s/|url\\?.*url=)(.*)/(&|\\?|%3F|#).*", "$3"],
 	"instagram": ["(https://(www\\.)?instagram\\.com/p/.*)/.*", "$1"],
 	"reddit": ["(https://(www\\.)?reddit.com/[^?]*).*", "$1"],
 	"twitter": ["(https://(www\\.)?twitter\\.com/.*/status/[0-9]*).*", "$1"],
