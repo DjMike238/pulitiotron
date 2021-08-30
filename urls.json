@@ -3,6 +3,7 @@
 	"google": ["https://(www\\.)?google\\.com/(amp/s/|url\\?.*url=)(.*)/(&|\\?|%3F|#).*", "$3"],
 	"instagram": ["(https://(www\\.)?instagram\\.com/p/.*)/.*", "$1"],
 	"reddit": ["(https://(www\\.)?reddit.com/[^?]*).*", "$1"],
+	"spotify": ["(https://open\\.spotify\\.com/[a-z]*/.*)\\?.*", "$1"],
 	"twitter": ["(https://(www\\.)?twitter\\.com/.*/status/[0-9]*).*", "$1"],
 	"youtube": ["(https://(www\\.)?youtube\\.com/watch\\?v=([0-9A-Za-z\\-_]*))(&t=[0-9a-z]*)?.*(&t=[0-9a-z]*)?(.*)?", "$1$4$5"]
 }
