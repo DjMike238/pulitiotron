@@ -37,6 +37,17 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 	}
 
 	switch url {
+	case "":
+		b.AnswerInlineQuery(
+			iq.ID,
+			results,
+			&echotron.InlineQueryOptions{
+				CacheTime:         1,
+				SwitchPmText:      "Need help?",
+				SwitchPmParameter: "start",
+			},
+		)
+
 	case "unsupported":
 		b.AnswerInlineQuery(
 			iq.ID,
@@ -45,17 +56,6 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 				CacheTime:         1,
 				SwitchPmText:      "Unsupported URL (click to learn more)",
 				SwitchPmParameter: "unsupported",
-			},
-		)
-
-	case "":
-		b.AnswerInlineQuery(
-			iq.ID,
-			results,
-			&echotron.InlineQueryOptions{
-				CacheTime:         1,
-				SwitchPmText:      "Need help?",
-				SwitchPmParameter: "",
 			},
 		)
 
@@ -94,6 +94,9 @@ func (b *bot) handleMessage(m echotron.Message) {
 				ParseMode: echotron.MarkdownV2,
 			},
 		)
+
+	case "start":
+		fallthrough
 
 	case "/start":
 		b.SendMessage(
