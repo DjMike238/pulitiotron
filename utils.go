@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"net/http"
 	"log"
-	"net/url"
+	"net/http"
 	"regexp"
 	"sort"
 	"strings"
+
+	tld "github.com/jpillora/go-tld"
 )
 
 func loadURLs() (urls map[string][]string) {
@@ -32,22 +33,17 @@ func loadURLs() (urls map[string][]string) {
 }
 
 func getCleanURL(rawURL string, urls map[string][]string) string {
-	u, err := url.Parse(rawURL)
+	u, err := tld.Parse(rawURL)
 	if err != nil {
 		log.Println(err)
 		return ""
 	}
 
-	hostArr := strings.Split(u.Hostname(), ".")
-	host := hostArr[1]
+	dom := u.Domain
 
-	if hostArr[0] != "www" {
-		host = hostArr[0]
-	}
-
-	if len(urls) > 0 && len(urls[host]) > 0 {
-		rx := regexp.MustCompile(urls[host][0])
-		return rx.ReplaceAllString(rawURL, urls[host][1])
+	if len(urls) > 0 && len(urls[dom]) > 0 {
+		rx := regexp.MustCompile(urls[dom][0])
+		return rx.ReplaceAllString(rawURL, urls[dom][1])
 	}
 
 	return "unsupported"
