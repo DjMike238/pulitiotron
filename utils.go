@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/url"
 	"regexp"
+	"sort"
 	"strings"
 )
 
@@ -55,7 +56,15 @@ func getCleanURL(rawURL string, urls map[string][]string) string {
 func createSupportedList(urls map[string][]string) string {
 	var sb strings.Builder
 
-	for k, _ := range urls {
+	keys := make([]string, 0, len(urls))
+
+	for k := range urls {
+		keys = append(keys, k)
+	}
+
+	sort.Strings(keys)
+
+	for _, k := range keys {
 		sb.WriteString(fmt.Sprintf("`%s`\n", k))
 	}
 
