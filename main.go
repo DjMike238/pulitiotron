@@ -102,10 +102,7 @@ func (b *bot) handleMessage(m echotron.Message) {
 			},
 		)
 
-	case "start":
-		fallthrough
-
-	case "/start":
+	case "start", "/start":
 		b.SendMessage(
 			"Welcome to *Pulitiotron*\\!\n"+
 				"\n"+
