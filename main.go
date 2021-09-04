@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
 	"log"
 	"strings"
@@ -14,17 +15,23 @@ type bot struct {
 	echotron.API
 }
 
-const TOKEN = ""
-const BOT_NAME = "pulitiotron"
-const ADMIN = 14870908
+const (
+	BOT_NAME = "pulitiotron"
+	ADMIN    = 14870908
+)
 
-var urls map[string][]string
-var supported string
+var (
+	urls      map[string][]string
+	supported string
+
+	//go:embed token
+	token string
+)
 
 func newBot(chatID int64) echotron.Bot {
 	return &bot{
 		chatID,
-		echotron.NewAPI(TOKEN),
+		echotron.NewAPI(token),
 	}
 }
 
@@ -151,6 +158,6 @@ func avertCrysis() {
 func main() {
 	urls = loadURLs()
 	supported = createSupportedList(urls)
-	dsp := echotron.NewDispatcher(TOKEN, newBot)
+	dsp := echotron.NewDispatcher(token, newBot)
 	log.Println(dsp.Poll())
 }
