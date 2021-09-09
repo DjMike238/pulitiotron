@@ -1,5 +1,5 @@
-github.com/NicoNex/echotron/v3 v3.5.2 h1:fUhaBlSsPpRJfDMKH0RhsNWhhirzp69w7aSaGDSvaHA=
-github.com/NicoNex/echotron/v3 v3.5.2/go.mod h1:H2HjJUjSTMprovO7LgjXE9ksTquw1YgK1Bs9sfecpU0=
+github.com/NicoNex/echotron/v3 v3.8.0 h1:GYQtRTvynADmSP47nCcEDsXmN6dKngA94+YgeTo8cvk=
+github.com/NicoNex/echotron/v3 v3.8.0/go.mod h1:H2HjJUjSTMprovO7LgjXE9ksTquw1YgK1Bs9sfecpU0=
 github.com/jpillora/go-tld v1.1.1 h1:P1ZwtKDHBYYUl235R/D64cdBARfGYzEy1Hg2Ikir3FQ=
 github.com/jpillora/go-tld v1.1.1/go.mod h1:kitBxOF//DR5FxYeIGw+etdiiTIq5S7bx0dwy1GUNAk=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=

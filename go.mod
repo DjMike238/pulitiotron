@@ -3,7 +3,7 @@ module pulitiotron
 go 1.17
 
 require (
-	github.com/NicoNex/echotron/v3 v3.5.2
+	github.com/NicoNex/echotron/v3 v3.8.0
 	github.com/jpillora/go-tld v1.1.1
 )
 

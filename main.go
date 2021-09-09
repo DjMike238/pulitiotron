@@ -68,7 +68,7 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 
 	default:
 		results = append(results, echotron.InlineQueryResultArticle{
-			Type:        echotron.ARTICLE,
+			Type:        echotron.InlineArticle,
 			ID:          fmt.Sprintf("%d", time.Now().Unix()),
 			Title:       "Send clean URL",
 			Description: url,
