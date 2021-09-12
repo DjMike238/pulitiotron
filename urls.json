@@ -3,7 +3,7 @@
 	"amazon": ["(https://(www\\.)?amazon\\.[a-z.]*/(.*/dp|dp|gp/product)/[A-Z0-9]*).*", "$1"],
 	"ebay": ["(https://(www\\.)?ebay.(.*)/itm/[0-9]*).*", "$1"],
 	"google": ["https://(www\\.)?google\\.com/(amp/s/|url\\?.*url=)(.*)/(&|\\?|%3F|#).*", "$3"],
-	"instagram": ["(https://(www\\.)?instagram\\.com/p/.*)/.*", "$1"],
+	"instagram": ["(https://(www\\.)?instagram\\.com/.*)\\?.*", "$1"],
 	"reddit": ["(https://(www\\.)?reddit.com/[^?]*).*", "$1"],
 	"spotify": ["(https://open\\.spotify\\.com/[a-z]*/.*)\\?.*", "$1"],
 	"twitter": ["(https://(www\\.)?twitter\\.com/.*/status/[0-9]*).*", "$1"],
