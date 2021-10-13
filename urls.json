@@ -1,7 +1,7 @@
 {
 	"aliexpress": ["(https://(.*\\.)?aliexpress\\.com/item/[0-9]*\\.html).*", "$1"],
 	"amazon": ["(https://(www\\.)?amazon\\.[a-z.]*/(.*/dp|dp|gp/product)/[A-Z0-9]*).*", "$1"],
-	"ebay": ["(https://(www\\.)?ebay\\..*/itm/([A-Za-z-]*/)?[0-9]*).*", "$1"],
+	"ebay": ["(https://(www\\.)?ebay\\..*/itm/(.*/)?[0-9]*).*", "$1"],
 	"etsy": ["((https://)(www\\.)?etsy\\.com/.*)\\?.*", "$1"],
 	"google": ["https://(www\\.)?google\\.com/(amp/s/|url\\?.*url=)(.*)/(&|\\?|%3F|#).*", "$3"],
 	"instagram": ["(https://(www\\.)?instagram\\.com/.*)\\?.*", "$1"],
