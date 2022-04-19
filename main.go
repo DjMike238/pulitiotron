@@ -36,15 +36,19 @@ func newBot(chatID int64) echotron.Bot {
 }
 
 func (b *bot) handleInline(iq echotron.InlineQuery) {
-	var url string
-	var results []echotron.InlineQueryResult
+	var (
+		url     string
+		urlType URLType
+
+		results []echotron.InlineQueryResult
+	)
 
 	if iq.Query != "" {
-		url = getCleanURL(iq.Query, urls)
+		urlType, url = getCleanURL(iq.Query, urls)
 	}
 
-	switch url {
-	case "":
+	switch urlType {
+	case Empty:
 		b.AnswerInlineQuery(
 			iq.ID,
 			results,
@@ -54,8 +58,9 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 				SwitchPmParameter: "start",
 			},
 		)
+		return
 
-	case "unsupported":
+	case Unsupported:
 		b.AnswerInlineQuery(
 			iq.ID,
 			results,
@@ -65,26 +70,41 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 				SwitchPmParameter: "unsupported",
 			},
 		)
+		return
 
-	default:
+	// When trying to clean a Twitter URL, an option to send a
+	// TwitFix (fxtwitter.com) version of the URL will be added.
+	case Twitter:
+		fxURL := strings.Replace(url, "twitter", "fxtwitter", 1)
+
 		results = append(results, echotron.InlineQueryResultArticle{
 			Type:        echotron.InlineArticle,
-			ID:          fmt.Sprintf("%d", time.Now().Unix()),
-			Title:       "Send clean URL",
-			Description: url,
+			ID:          fmt.Sprintf("%d", time.Now().UnixNano()),
+			Title:       "Send TwitFix URL",
+			Description: fxURL,
 			InputMessageContent: echotron.InputTextMessageContent{
-				MessageText: url,
+				MessageText: fxURL,
 			},
 		})
-
-		b.AnswerInlineQuery(
-			iq.ID,
-			results,
-			&echotron.InlineQueryOptions{
-				CacheTime: 1,
-			},
-		)
 	}
+
+	results = append(results, echotron.InlineQueryResultArticle{
+		Type:        echotron.InlineArticle,
+		ID:          fmt.Sprintf("%d", time.Now().UnixNano()),
+		Title:       "Send clean URL",
+		Description: url,
+		InputMessageContent: echotron.InputTextMessageContent{
+			MessageText: url,
+		},
+	})
+
+	b.AnswerInlineQuery(
+		iq.ID,
+		results,
+		&echotron.InlineQueryOptions{
+			CacheTime: 1,
+		},
+	)
 }
 
 func (b *bot) handleMessage(m echotron.Message) {

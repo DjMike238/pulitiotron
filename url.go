@@ -13,6 +13,19 @@ import (
 	tld "github.com/jpillora/go-tld"
 )
 
+// Custom type for different types of URLs.
+type URLType uint
+
+const (
+	Empty URLType = iota
+	Supported
+	Unsupported
+
+	// When trying to clean a Twitter URL, an option to send a
+	// TwitFix (fxtwitter.com) version of the URL will be added.
+	Twitter
+)
+
 // Discard any text before a query.
 var beforeRx = regexp.MustCompile("(.* )?(.*)")
 
@@ -35,10 +48,10 @@ func loadURLs() (urls map[string][]string) {
 	return
 }
 
-func getCleanURL(rawURL string, urls map[string][]string) string {
+func getCleanURL(rawURL string, urls map[string][]string) (URLType, string) {
 	url := beforeRx.FindStringSubmatch(rawURL)
 	if url == nil {
-		return ""
+		return Empty, ""
 	}
 
 	rawURL = url[2]
@@ -46,17 +59,23 @@ func getCleanURL(rawURL string, urls map[string][]string) string {
 	u, err := tld.Parse(rawURL)
 	if err != nil {
 		log.Println(err)
-		return ""
+		return Empty, ""
 	}
 
 	dom := u.Domain
 
 	if len(urls) > 0 && len(urls[dom]) > 0 {
 		rx := regexp.MustCompile(urls[dom][0])
-		return rx.ReplaceAllString(rawURL, urls[dom][1])
+		clean := rx.ReplaceAllString(rawURL, urls[dom][1])
+
+		if dom == "twitter" {
+			return Twitter, clean
+		}
+
+		return Supported, clean
 	}
 
-	return "unsupported"
+	return Unsupported, ""
 }
 
 func createSupportedList(urls map[string][]string) string {
