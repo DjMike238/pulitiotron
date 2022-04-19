@@ -13,6 +13,9 @@ import (
 	tld "github.com/jpillora/go-tld"
 )
 
+// Discard any text before a query.
+var beforeRx = regexp.MustCompile("(.* )?(.*)")
+
 func loadURLs() (urls map[string][]string) {
 	resp, err := http.Get("https://github.com/DjMike238/pulitiotron/raw/master/urls.json")
 	if err != nil {
@@ -33,6 +36,13 @@ func loadURLs() (urls map[string][]string) {
 }
 
 func getCleanURL(rawURL string, urls map[string][]string) string {
+	url := beforeRx.FindStringSubmatch(rawURL)
+	if url == nil {
+		return ""
+	}
+
+	rawURL = url[2]
+
 	u, err := tld.Parse(rawURL)
 	if err != nil {
 		log.Println(err)
