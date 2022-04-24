@@ -1,13 +1,13 @@
 {
-	"aliexpress": ["(https://(.*\\.)?aliexpress\\.com/item/[0-9]*\\.html).*", "$1"],
-	"amazon": ["(https://(www\\.)?amazon\\.[a-z.]*/(.*/dp|dp|gp/product)/[A-Z0-9]*).*", "$1"],
-	"ebay": ["(https://(www\\.)?ebay\\..*/itm/(.*/)?[0-9]*).*", "$1"],
-	"etsy": ["((https://)(www\\.)?etsy\\.com/.*)\\?.*", "$1"],
-	"google": ["https://(www\\.)?google\\.com/(amp/s/|url\\?.*url=)(.*)/(&|\\?|%3F|#).*", "$3"],
-	"instagram": ["(https://(www\\.)?instagram\\.com/.*)\\?.*", "$1"],
-	"reddit": ["(https://(www\\.)?reddit.com/[^?]*).*", "$1"],
-	"spotify": ["(https://open\\.spotify\\.com/[a-z]*/.*)\\?.*", "$1"],
-	"twitter": ["(https://(www\\.)?twitter\\.com/.*/status/[0-9]*).*", "$1"],
-	"youtu": ["https://youtu\\.be/(.*)", "https://youtube.com/watch?v=$1"],
-	"youtube": ["(https://(www\\.)?youtube\\.com/watch\\?v=([0-9A-Za-z\\-_]*))(&t=[0-9a-z]*)?.*(&t=[0-9a-z]*)?(.*)?", "$1$4$5"]
+	"aliexpress": ["((https://)?(.*\\.)?aliexpress\\.com/item/[0-9]*\\.html).*", "$1"],
+	"amazon": ["((https://)?(www\\.)?amazon\\.[a-z.]*/(.*/dp|dp|gp/product)/[A-Z0-9]*).*", "$1"],
+	"ebay": ["((https://)?(www\\.)?ebay\\..*/itm/(.*/)?[0-9]*).*", "$1"],
+	"etsy": ["((https://)?(www\\.)?etsy\\.com/.*)\\?.*", "$1"],
+	"google": ["(https://)?(www\\.)?google\\.com/(amp/s/|url\\?.*url=)(.*)/(&|\\?|%3F|#).*", "$3"],
+	"instagram": ["((https://)?(www\\.)?instagram\\.com/.*)\\?.*", "$1"],
+	"reddit": ["((https://)?(www\\.)?reddit.com/[^?]*).*", "$1"],
+	"spotify": ["((https://)?open\\.spotify\\.com/[a-z]*/.*)\\?.*", "$1"],
+	"twitter": ["((https://)?(www\\.)?twitter\\.com/.*/(status/)?[0-9]*).*", "$1"],
+	"youtu": ["(https://)?youtu\\.be/(.*)", "https://www\\.youtube\\.com/watch\\?v=$2"],
+	"youtube": ["((https://)?(www\\.)?youtube\\.com/watch\\?(v=[0-9A-Za-z\\-_]*))(t=[0-9a-z]*)?[^t]*(t=[0-9a-z]*)?.*", "$1&$6"]
 }
