@@ -22,7 +22,7 @@ const (
 	Unsupported
 
 	// When trying to clean a Twitter URL, an option to send a
-	// TwitFix (fxtwitter.com) version of the URL will be added.
+	// vxTwitter (vxtwitter.com) version of the URL will be added.
 	Twitter
 )
 

@@ -73,17 +73,17 @@ func (b *bot) handleInline(iq echotron.InlineQuery) {
 		return
 
 	// When trying to clean a Twitter URL, an option to send a
-	// TwitFix (fxtwitter.com) version of the URL will be added.
+	// vxTwitter (vxtwitter.com) version of the URL will be added.
 	case Twitter:
-		fxURL := strings.Replace(url, "twitter", "fxtwitter", 1)
+		vxURL := strings.Replace(url, "twitter", "vxtwitter", 1)
 
 		results = append(results, echotron.InlineQueryResultArticle{
 			Type:        echotron.InlineArticle,
 			ID:          fmt.Sprintf("%d", time.Now().UnixNano()),
-			Title:       "Send TwitFix URL",
-			Description: fxURL,
+			Title:       "Send vxTwitter URL",
+			Description: vxURL,
 			InputMessageContent: echotron.InputTextMessageContent{
-				MessageText: fxURL,
+				MessageText: vxURL,
 			},
 		})
 	}
